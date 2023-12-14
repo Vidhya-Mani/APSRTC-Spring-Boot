@@ -8,7 +8,7 @@ public class ManagebusApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ManagebusApplication.class, args);
-		System.out.println("working");
+		System.out.println("Spring Boot Application created for JAVA Workshop!");
 	}
 
 }
