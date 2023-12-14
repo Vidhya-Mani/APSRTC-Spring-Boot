@@ -1,6 +1,7 @@
-package com.apsrtc.managebus.DTO;
+package com.apsrtc.managebus.entity;
 
-public class LoginDTO {
+public class JwtRequest {
+	
 	private String name;
 	private String password;
 	public String getName() {

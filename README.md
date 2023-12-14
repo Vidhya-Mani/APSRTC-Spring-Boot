@@ -1,3 +1,6 @@
 # APSRTC-Spring-Boot
 Spring boot application to login user based and add routes, buses similar to state transport websites
-This is to test whether i am able to push code from mac
+Role based authentication - User and Admin
+New user register - default user role.
+password - encrypted before updating in db - bcrypt
+JWT token generated to restrict access to admin pages and user pages
