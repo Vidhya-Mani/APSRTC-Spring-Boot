@@ -20,10 +20,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostConstruct
-	public void callRoleAndUser() {
-		userService.initRoleAndUser();
-	}
+	/*
+	 * @PostConstruct public void callRoleAndUser() { userService.initRoleAndUser();
+	 * }
+	 */
 	
 	@PostMapping({"/registerUser"})
 	public User registerUser(@RequestBody User user) {
