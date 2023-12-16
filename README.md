@@ -24,14 +24,15 @@ Role based authentication - User and Admin
             "name": "Mah",
             "password": "mah123"
             }
-New user register - default user role.
+New user register - default user role
+
     http://localhost:9090/registerUser - POST
-        {
-        "name": "Dha",
-        "age": 7,
-        "email": "dha@gmail.com",
-        "password": "dha123"
-         }
+            {
+            "name": "Dha",
+            "age": 7,
+            "email": "dha@gmail.com",
+            "password": "dha123"
+            }
 
 password - encrypted before updating in db - using bcrypt.
 
@@ -52,7 +53,8 @@ Models  created -
         public | user_table   | table | root
         (6 rows)
 
-CRUD operations implemented for table bus_detail.
+CRUD operations implemented for table bus_detail
+
     http://localhost:9090/api/busDetail - GET,POST
 
     http://localhost:9090/api/busDetail/2 - PUT and DELETE
@@ -71,20 +73,22 @@ Created config for Bus routes using command line runner.
 
 Created bus schedule dao to map bus start and end time.
 
-Mapping of schedule and route to a bus using bus_id from postman.
+Mapping of schedule and route to a bus using bus_id from postman
+
     http://localhost:9090/api/busDetail/4/map-schedule - POST
-        {
-        "registrationNumber": "KL31NN1234",
-        "routeName": "routeBK",
-        "startTime": "2023-12-01T21:00:00",
-        "endTime": "2023-12-01T05:00:00"
-        }
+            {
+            "registrationNumber": "KL31NN1234",
+            "routeName": "routeBK",
+            "startTime": "2023-12-01T21:00:00",
+            "endTime": "2023-12-01T05:00:00"
+            }
 
 Only admin will be able to map these information.
 
 Now the mapping of bus, schedule and route cannot be done when the start time and end time of a bus overlaps. Condition check before mapping.
 
-Displayed the Route wise bus details with bus reg number and type when hit from postman.
+Displayed the Route wise bus details with bus reg number and type when hit from postman
+
     http://localhost:9090/api/busDetail/buses-for-route?routeName=routeBK - GET
 
 DB DATA - COMPLETE LIST:
