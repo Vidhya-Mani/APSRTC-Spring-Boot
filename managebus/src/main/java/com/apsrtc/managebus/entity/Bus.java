@@ -1,5 +1,8 @@
 package com.apsrtc.managebus.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +27,10 @@ public class Bus {
     @Enumerated(EnumType.STRING)
     private BusType type;
 
-	/*
-	 * @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL, orphanRemoval = true)
-	 * private List<BusSchedule> schedules;
-	 */
+	
+	  @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL, orphanRemoval = true)
+	  private List<BusSchedule> schedules;
+	 
     
     public enum BusType {
         ORDINARY,
@@ -55,6 +59,14 @@ public class Bus {
 
 	public void setType(BusType type) {
 		this.type = type;
+	}
+
+	public List<BusSchedule> getSchedules() {
+		return schedules;
+	}
+
+	public void setSchedules(List<BusSchedule> schedules) {
+		this.schedules = schedules;
 	}
 
     

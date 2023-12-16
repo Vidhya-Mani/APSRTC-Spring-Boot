@@ -8,3 +8,5 @@ Model bus created - regnumber and type - ordinary/deluxe
 CRUD operations implemented for table bus_detail
 Only Admin can modify/delete bus detail
 Normal user and admin can view and add bus details.
+Created config for Bus routes using comman line runner.
+Created bus schedule dao to map bus start and end time.
