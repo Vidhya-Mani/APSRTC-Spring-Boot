@@ -52,5 +52,8 @@ public class BusRoute {
 			this.end_place = end_place;
 		}
 		
+		public BusRoute() {
+		}
+		
 
 }

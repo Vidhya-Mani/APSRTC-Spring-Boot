@@ -70,7 +70,7 @@ public class BusRouteConfig {
 						"Bangalore"
 						);
 				
-			repository.saveAll(List.of(routeBC,routeBH,routeBG,routeBK,routeBM,routeCB,routeHB,routeGB,routeKB,routeMB));
+			//repository.saveAll(List.of(routeBC,routeBH,routeBG,routeBK,routeBM,routeCB,routeHB,routeGB,routeKB,routeMB));
 		};
 	}
 	

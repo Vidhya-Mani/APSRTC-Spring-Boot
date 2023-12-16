@@ -1,8 +1,10 @@
 package com.apsrtc.managebus.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,9 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apsrtc.managebus.entity.Bus;
+import com.apsrtc.managebus.entity.MapScheduleRequest;
+import com.apsrtc.managebus.exceptions.BusNotFoundException;
+import com.apsrtc.managebus.exceptions.ScheduleOverlapException;
+import com.apsrtc.managebus.exceptions.RouteNotFoundException;
 import com.apsrtc.managebus.service.BusService;
 
 
@@ -64,6 +71,25 @@ public class BusController {
 	public String delBus(@PathVariable("busId") Long busId) {
 		busService.deleteBus(busId);
 		return "Bus deleted successfully";
+	}
+	
+	@PostMapping("/{registrationNumber}/map-schedule")
+	public ResponseEntity<String> mapScheduleToBus(
+	        @PathVariable String registrationNumber,
+	        @RequestBody MapScheduleRequest request) {
+
+	    String routeName = request.getRouteName();
+	    LocalDateTime startTime = request.getStartTime();
+	    LocalDateTime endTime = request.getEndTime();
+
+	    try {
+	        busService.mapScheduleToBus(registrationNumber, routeName, startTime, endTime);
+	        return ResponseEntity.ok("Schedule mapped successfully.");
+	    } catch (ScheduleOverlapException e) {
+	        return ResponseEntity.badRequest().body("Schedule overlaps with an existing schedule.");
+	    } catch (BusNotFoundException | RouteNotFoundException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	    }
 	}
 	
 
