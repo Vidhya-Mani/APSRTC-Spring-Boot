@@ -1,7 +1,10 @@
 # BUS-Spring-Boot Project
 
 ### CASE STUDY SCENARIO:
-Catering to the commutation needs of an ever-increasing population was never a piece of cake, for the state-owned transport company ABC. Every day new buses were added into the fleet, and due to population expanding in the suburbs, new bus routes had to be identified. The management was facing problem in managing and mapping buses to proper routes. The department was receiving lot of complaints regarding improper management of bus schedules. People too were complaining regarding frequency of buses in some routes. Proper distribution of buses based on classes was also missing. Looking into all the above problems, APSRTC finally decided to automate the whole system of managing the fleet details. Below are given the Requirements decided by the management:
+Catering to the commutation needs of an ever-increasing population was never a piece of cake, for the state-owned transport company ABC. Every day new buses were added into the fleet, and due to population expanding in the suburbs, new bus routes had to be identified. The management was facing problem in managing and mapping buses to proper routes. The department was receiving lot of complaints regarding improper management of bus schedules. People too were complaining regarding frequency of buses in some routes. Proper distribution of buses based on classes was also missing. Looking into all the above problems, APSRTC finally decided to automate the whole system of managing the fleet details. 
+
+Below are given the Requirements decided by the management:
+
 Create a screen with Login Id and Password. Check for the different roles and restrict access to perform the specified operations. (I.e., User cannot Modify/Delete values.). User types are Admin and User
 Read the requirements carefully; Use appropriate fields and normalize the database wherever necessary
 Provide feature to add  bus details, modify details and delete bus details.
