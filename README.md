@@ -12,7 +12,7 @@ Buses are of two types Ordinary and deluxe.
 Display the Route wise bus details with bus reg number using a stored procedure.
 
 ### SNAPSHOTS:
-    This folder has all the screenshots of postman and db created with data. I have configured the port to 9090 for this project.
+This folder has all the screenshots of postman and db created with data. I have configured the port to 9090 for this project.
 
 ## Steps Followed to implement all requirements:
 
