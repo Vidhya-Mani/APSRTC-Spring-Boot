@@ -95,6 +95,7 @@ public class BusController {
 	}
 	
 	@GetMapping("/buses-for-route")
+	@PreAuthorize("hasAnyRole('User','Admin')")
     public ResponseEntity<List<BusDto>> getBusesForRoute(@RequestParam String routeName) {
         List<BusDto> busesForRoute = busService.getBusesForRoute(routeName);
         return ResponseEntity.ok(busesForRoute);
