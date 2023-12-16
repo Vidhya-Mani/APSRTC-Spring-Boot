@@ -87,11 +87,11 @@ Displayed the Route wise bus details with bus reg number and type when hit from 
 DB DATA - COMPLETE LIST:
 
     apsrtc=> select * from role;
- role  |        role_description         
--------+---------------------------------
- Admin | Admin permissions update/delete
- User  | Default role for all new users
-(2 rows)
+        role  |        role_description         
+        -------+---------------------------------
+        Admin | Admin permissions update/delete
+        User  | Default role for all new users
+        (2 rows)
 
     apsrtc=> select * from user_role;
  user_id | role_id 
