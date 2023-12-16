@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apsrtc.managebus.dto.BusDto;
 import com.apsrtc.managebus.entity.Bus;
 import com.apsrtc.managebus.entity.MapScheduleRequest;
 import com.apsrtc.managebus.exceptions.BusNotFoundException;
@@ -92,6 +93,13 @@ public class BusController {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 	    }
 	}
+	
+	@GetMapping("/buses-for-route")
+    public ResponseEntity<List<BusDto>> getBusesForRoute(@RequestParam String routeName) {
+        List<BusDto> busesForRoute = busService.getBusesForRoute(routeName);
+        return ResponseEntity.ok(busesForRoute);
+    }
+
 	
 
 }

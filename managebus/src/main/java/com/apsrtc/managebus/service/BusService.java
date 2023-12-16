@@ -1,6 +1,7 @@
 package com.apsrtc.managebus.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.apsrtc.managebus.dao.BusDao;
 import com.apsrtc.managebus.dao.BusRouteDao;
 import com.apsrtc.managebus.dao.BusScheduleDao;
+import com.apsrtc.managebus.dto.BusDto;
 import com.apsrtc.managebus.entity.Bus;
 import com.apsrtc.managebus.entity.BusRoute;
 import com.apsrtc.managebus.entity.BusSchedule;
@@ -31,6 +33,7 @@ public class BusService {
 	
 	@Autowired
 	private BusRouteDao busRouteDao;
+	
 	
 	public List<Bus> getBus() {
 		return busDao.findAll();
@@ -121,6 +124,10 @@ public class BusService {
             }
         }
         return false; // No overlap
+    }
+    
+    public List<BusDto> getBusesForRoute(String routeName) {
+        return busDao.findAllBusesForRoute(routeName);
     }
 
 }

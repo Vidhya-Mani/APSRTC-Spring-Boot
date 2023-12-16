@@ -12,6 +12,6 @@ import com.apsrtc.managebus.entity.BusSchedule;
 @Repository
 public interface BusScheduleDao extends JpaRepository<BusSchedule, Long>{
 	
-	    //@Query("SELECT bs FROM BusSchedule bs WHERE bs.busId = :busId")
+	    //@Query("SELECT bs FROM BusSchedule bs WHERE bs.id = :id")
 	    List<BusSchedule> findByBusId(@Param("busId") Long id);
 }
