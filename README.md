@@ -16,21 +16,22 @@ Display the Route wise bus details with bus reg number using a stored procedure.
 
 ## Steps Followed to implement all requirements:
 
-Role based authentication - User and Admin.
-    http://localhost:9090/authenticate - POST
+Role based authentication - User and Admin
     Create admin role using a method initrole after postconstruct. Set default role as user for any new login
-    {
-    "name": "Mah",
-    "password": "mah123"
-    }
+
+     http://localhost:9090/authenticate - POST
+            {
+            "name": "Mah",
+            "password": "mah123"
+            }
 New user register - default user role.
     http://localhost:9090/registerUser - POST
-    {
-    "name": "Dha",
-    "age": 7,
-    "email": "dha@gmail.com",
-    "password": "dha123"
-}
+        {
+        "name": "Dha",
+        "age": 7,
+        "email": "dha@gmail.com",
+        "password": "dha123"
+         }
 
 password - encrypted before updating in db - using bcrypt.
 
@@ -40,24 +41,26 @@ JWT token generated to restrict access to admin pages and user pages.
 Models  created -
 
     apsrtc=> \dt
-            List of relations
-    Schema |     Name     | Type  | Owner 
-    --------+--------------+-------+-------
-    public | bus_detail   | table | root
-    public | bus_route    | table | root
-    public | bus_schedule | table | root
-    public | role         | table | root
-    public | user_role    | table | root
-    public | user_table   | table | root
-    (6 rows)
+                List of relations
+        Schema |     Name     | Type  | Owner 
+        --------+--------------+-------+-------
+        public | bus_detail   | table | root
+        public | bus_route    | table | root
+        public | bus_schedule | table | root
+        public | role         | table | root
+        public | user_role    | table | root
+        public | user_table   | table | root
+        (6 rows)
 
 CRUD operations implemented for table bus_detail.
     http://localhost:9090/api/busDetail - GET,POST
+
     http://localhost:9090/api/busDetail/2 - PUT and DELETE
-    {
-    "registrationNumber": "KL31NN1234",
-    "type": "ORDINARY"
-    }
+
+        {
+        "registrationNumber": "KL31NN1234",
+        "type": "ORDINARY"
+        }
 
 Only Admin can modify/delete bus detail.
 
@@ -70,12 +73,12 @@ Created bus schedule dao to map bus start and end time.
 
 Mapping of schedule and route to a bus using bus_id from postman.
     http://localhost:9090/api/busDetail/4/map-schedule - POST
-    {
-   "registrationNumber": "KL31NN1234",
-    "routeName": "routeBK",
-    "startTime": "2023-12-01T21:00:00",
-    "endTime": "2023-12-01T05:00:00"
-    }
+        {
+        "registrationNumber": "KL31NN1234",
+        "routeName": "routeBK",
+        "startTime": "2023-12-01T21:00:00",
+        "endTime": "2023-12-01T05:00:00"
+        }
 
 Only admin will be able to map these information.
 
@@ -94,51 +97,51 @@ DB DATA - COMPLETE LIST:
         (2 rows)
 
     apsrtc=> select * from user_role;
- user_id | role_id 
----------+---------
- vidhya  | Admin
- Mahil   | User
- Dharun  | User
-(3 rows)
+        user_id | role_id 
+        ---------+---------
+        vidhya  | Admin
+        Mahil   | User
+        Dharun  | User
+        (3 rows)
 
     apsrtc=> select * from user_table;
-  name  | age |      email       |                           password                           
---------+-----+------------------+--------------------------------------------------------------
- vidhya |  22 | vidhya@gmail.com | $2a$10$apkzkMl5uhhWeBIGYXvtzuJV7.IiNc6c7NEdTDQ4IH6jW.gztorZG
- Mahil  |   9 | mahil@gmail.com  | $2a$10$bCi7OkrgaeaV75q/F2s.l.d.xuoMBOjcCBi0m6AROP6zsZOm2R9wW
- Dharun |   7 | dharun@gmail.com | $2a$10$MHFuaIC4ilnSnREYtBq.c.0Qlq4ou5Mc05ulQnoj4nHIXILKzOL/6
-(3 rows)
+        name  | age |      email       |                           password                           
+        --------+-----+------------------+--------------------------------------------------------------
+        vidhya |  22 | vidhya@gmail.com | $2a$10$apkzkMl5uhhWeBIGYXvtzuJV7.IiNc6c7NEdTDQ4IH6jW.gztorZG
+        Mahil  |   9 | mahil@gmail.com  | $2a$10$bCi7OkrgaeaV75q/F2s.l.d.xuoMBOjcCBi0m6AROP6zsZOm2R9wW
+        Dharun |   7 | dharun@gmail.com | $2a$10$MHFuaIC4ilnSnREYtBq.c.0Qlq4ou5Mc05ulQnoj4nHIXILKzOL/6
+        (3 rows)
 
     apsrtc=> select * from bus_detail;
- id | registration_number |   type   
-----+---------------------+----------
-  2 | TN51NU1234          | DELUXE
-  3 | KA51PUT1234         | ORDINARY
-  4 | KL31NN1234          | ORDINARY
-(3 rows)
+        id | registration_number |   type   
+        ----+---------------------+----------
+        2 | TN51NU1234          | DELUXE
+        3 | KA51PUT1234         | ORDINARY
+        4 | KL31NN1234          | ORDINARY
+        (3 rows)
 
     apsrtc=> select * from bus_route;
- id | end_place | route_name | start_place 
-----+-----------+------------+-------------
-  1 | Chennai   | routeBC    | Bangalore
-  2 | Hyderabad | routeBH    | Bangalore
-  3 | Goa       | routeBG    | Bangalore
-  4 | Kerala    | routeBK    | Bangalore
-  5 | Mumbai    | routeBM    | Bangalore
-  6 | Bangalore | routeCB    | Chennai
-  7 | Bangalore | routeHB    | Hyderabad
-  8 | Bangalore | routeGB    | Goa
-  9 | Bangalore | routeKB    | Kerala
- 10 | Bangalore | routeMB    | Mumbai
-(10 rows)
+        id | end_place | route_name | start_place 
+        ----+-----------+------------+-------------
+        1 | Chennai   | routeBC    | Bangalore
+        2 | Hyderabad | routeBH    | Bangalore
+        3 | Goa       | routeBG    | Bangalore
+        4 | Kerala    | routeBK    | Bangalore
+        5 | Mumbai    | routeBM    | Bangalore
+        6 | Bangalore | routeCB    | Chennai
+        7 | Bangalore | routeHB    | Hyderabad
+        8 | Bangalore | routeGB    | Goa
+        9 | Bangalore | routeKB    | Kerala
+        10 | Bangalore | routeMB    | Mumbai
+        (10 rows)
 
     apsrtc=> select * from bus_schedule;
- id |      end_time       |     start_time      | bus_id | route_id 
-----+---------------------+---------------------+--------+----------
-  2 | 2023-12-01 15:00:00 | 2023-12-01 08:00:00 |      2 |        4
-  3 | 2023-12-01 12:00:00 | 2023-12-01 08:00:00 |      3 |        4
-  4 | 2023-12-01 17:00:00 | 2023-12-01 13:00:00 |      3 |        8
-  5 | 2023-12-01 05:00:00 | 2023-12-01 21:00:00 |      4 |        4
-(4 rows)
+        id |      end_time       |     start_time      | bus_id | route_id 
+        ----+---------------------+---------------------+--------+----------
+        2 | 2023-12-01 15:00:00 | 2023-12-01 08:00:00 |      2 |        4
+        3 | 2023-12-01 12:00:00 | 2023-12-01 08:00:00 |      3 |        4
+        4 | 2023-12-01 17:00:00 | 2023-12-01 13:00:00 |      3 |        8
+        5 | 2023-12-01 05:00:00 | 2023-12-01 21:00:00 |      4 |        4
+        (4 rows)
 
 
