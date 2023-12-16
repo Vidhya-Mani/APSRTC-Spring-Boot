@@ -3,6 +3,7 @@ package com.apsrtc.managebus.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -57,7 +58,7 @@ public class BusService {
 	}
 	
 	@Transactional
-    public void mapScheduleToBus(String registrationNumber, String routeName, LocalDateTime startTime, LocalDateTime endTime)
+    public void mapScheduleToBus(Long busId, String registrationNumber, String routeName, LocalDateTime startTime, LocalDateTime endTime)
             throws ScheduleOverlapException, BusNotFoundException, RouteNotFoundException {
 
         // Find the bus by registration number
@@ -69,7 +70,7 @@ public class BusService {
                 .orElseThrow(() -> new RouteNotFoundException("Route not found with name: " + routeName));
 
         // Check for schedule overlap
-        if (hasScheduleOverlap(bus, startTime, endTime)) {
+        if (hasScheduleOverlap(busId, startTime, endTime)) {
             throw new ScheduleOverlapException("Schedule overlaps with an existing schedule for the bus.");
         }
 
@@ -87,15 +88,36 @@ public class BusService {
         busDao.save(bus);
     }
 
-    private boolean hasScheduleOverlap(Bus bus, LocalDateTime newStartTime, LocalDateTime newEndTime) {
-        for (BusSchedule existingSchedule : bus.getSchedules()) {
+    private boolean hasScheduleOverlap(Long busId, LocalDateTime proposedStartTime, LocalDateTime proposedEndTime) {
+    	
+    	List<BusSchedule> existingSchedules = busScheduleDao.findByBusId(busId);
+
+    	
+        for (BusSchedule existingSchedule : existingSchedules) {
             LocalDateTime existingStartTime = existingSchedule.getStartTime();
             LocalDateTime existingEndTime = existingSchedule.getEndTime();
+            
+         // Check for overlap condition: proposedStartTime is between existingStartTime and existingEndTime
+            if ((proposedStartTime.isAfter(existingStartTime) || proposedStartTime.isEqual(existingStartTime))
+                    && proposedStartTime.isBefore(existingEndTime)) {
+                return true;
+            }
 
-            if ((newStartTime.isAfter(existingStartTime) && newStartTime.isBefore(existingEndTime)) ||
+            // Check for overlap condition: proposedEndTime is between existingStartTime and existingEndTime
+            if (proposedEndTime.isAfter(existingStartTime) && (proposedEndTime.isBefore(existingEndTime) || proposedEndTime.isEqual(existingEndTime))) {
+                return true;
+            }
+
+            // Check for overlap condition: existingStartTime is between proposedStartTime and proposedEndTime
+            if ((existingStartTime.isAfter(proposedStartTime) || existingStartTime.isEqual(proposedStartTime))
+                    && existingStartTime.isBefore(proposedEndTime)) {
+                return true;
+
+            /*if ((newStartTime.isAfter(existingStartTime) && newStartTime.isBefore(existingEndTime)) ||
                 (newEndTime.isAfter(existingStartTime) && newEndTime.isBefore(existingEndTime)) ||
                 (newStartTime.isBefore(existingStartTime) && newEndTime.isAfter(existingEndTime))) {
                 return true; // Overlapping schedule
+*/            
             }
         }
         return false; // No overlap

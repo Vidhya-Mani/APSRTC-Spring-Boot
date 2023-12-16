@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class MapScheduleRequest {
 	
+     private String registrationNumber;	
 	 private String routeName;
 	 private LocalDateTime startTime;
 	 private LocalDateTime endTime;
@@ -24,6 +25,12 @@ public class MapScheduleRequest {
 	}
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
+	}
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
 	}
 
 }

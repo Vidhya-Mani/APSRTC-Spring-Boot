@@ -73,17 +73,18 @@ public class BusController {
 		return "Bus deleted successfully";
 	}
 	
-	@PostMapping("/{registrationNumber}/map-schedule")
+	@PostMapping("/{busId}/map-schedule")
+	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<String> mapScheduleToBus(
-	        @PathVariable String registrationNumber,
+	        @PathVariable Long busId,
 	        @RequestBody MapScheduleRequest request) {
-
+		String registrationNumber = request.getRegistrationNumber();
 	    String routeName = request.getRouteName();
 	    LocalDateTime startTime = request.getStartTime();
 	    LocalDateTime endTime = request.getEndTime();
 
 	    try {
-	        busService.mapScheduleToBus(registrationNumber, routeName, startTime, endTime);
+	        busService.mapScheduleToBus(busId, registrationNumber, routeName, startTime, endTime);
 	        return ResponseEntity.ok("Schedule mapped successfully.");
 	    } catch (ScheduleOverlapException e) {
 	        return ResponseEntity.badRequest().body("Schedule overlaps with an existing schedule.");

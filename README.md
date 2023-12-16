@@ -25,3 +25,5 @@ Mapping of schedule and route to a bus using registration number from postman.
 
 Only admin will be able to map these information.
 
+Now the mapping of bus, schedule and route cannot be done when the start time and end time of a bus overlaps. Condition check before mapping.
+
